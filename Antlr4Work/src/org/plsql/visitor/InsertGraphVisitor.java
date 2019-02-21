@@ -31,6 +31,7 @@ import net.sf.jsqlparser.statement.select.Join;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.select.SelectBody;
+import net.sf.jsqlparser.statement.select.SetOperationList;
 import net.sf.jsqlparser.statement.select.SubSelect;
 
 public class InsertGraphVisitor extends PlSqlRuleVisitor {
@@ -207,6 +208,10 @@ public class InsertGraphVisitor extends PlSqlRuleVisitor {
     @Override public Void visitSelect_statement(PlSqlParser.Select_statementContext ctx) {
     	
     	
+    	if(this.currentTable  == null)
+    	{
+    		return visitChildren(ctx); 
+    	}
     	if (visitMode == VistFlag.SECOND_PASS) 
     	{
     		
@@ -232,14 +237,14 @@ public class InsertGraphVisitor extends PlSqlRuleVisitor {
 			    gv.addln(gv.start_graph());
 				
 			    
-			    vistTheSelectOnce(selectStateMent.getSelectBody(),this.currentTable,gv);
+			    visitTheSelectOnce(selectStateMent.getSelectBody(),this.currentTable,gv);
 			    
 				
 			    gv.addln(gv.end_graph());
 			    System.out.println(gv.getDotSource());
 				
 			    String type = "gif";
-			    File out = new File("d:dot/out/" +  this.currentTable); 
+			    File out = new File("d:\\dot\\out\\" +  this.currentTable); 
 			    gv.writeGraphToFile( gv.getGraph( gv.getDotSource(), type ), out );
 				
 				
@@ -258,8 +263,26 @@ public class InsertGraphVisitor extends PlSqlRuleVisitor {
     
     }
     
-    public void vistTheSelectOnce(SelectBody selectBody, String parent,GraphViz gv)
+    public void visitTheSelectOnce(SelectBody selectBody, String parent,GraphViz gv)
     {
+    	
+    	
+    	if(selectBody instanceof SetOperationList)
+    	{
+    		SetOperationList sot = (SetOperationList)selectBody;
+    		List<SelectBody> selectBodyList = sot.getSelects();
+    		
+    		for(int i =0;i<selectBodyList.size();i++)
+    		{
+    			SelectBody sb  = selectBodyList.get(i);
+    			System.out.println(parent+"->>>>"+"xxxxx");
+    			
+    			visitTheSelectOnce(sb,parent,gv);
+    			
+    		}
+    		return;
+    		
+    	}
     	
     	PlainSelect plainSelect = (PlainSelect)selectBody;
     	
@@ -280,7 +303,7 @@ public class InsertGraphVisitor extends PlSqlRuleVisitor {
     		
     		if(null != subSelect.getSelectBody())
     		{
-    			vistTheSelectOnce(subSelect.getSelectBody(),subSelect.getAlias().getName(),gv);
+    			visitTheSelectOnce(subSelect.getSelectBody(),subSelect.getAlias().getName(),gv);
     		}
     	}
     	
@@ -324,7 +347,7 @@ public class InsertGraphVisitor extends PlSqlRuleVisitor {
     	    		
     	    		if(null != joinSubSelect.getSelectBody())
     	    		{
-    	    			vistTheSelectOnce(joinSubSelect.getSelectBody(),joinSubSelect.getAlias().getName(),gv);
+    	    			visitTheSelectOnce(joinSubSelect.getSelectBody(),joinSubSelect.getAlias().getName(),gv);
     	    		}
     				
     			}
