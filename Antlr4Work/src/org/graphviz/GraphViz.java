@@ -60,6 +60,9 @@ public class GraphViz
     * The source of the graph written in dot language.
     */
  private StringBuilder graph = new StringBuilder();
+ 
+ private StringBuilder graphPlain =  new StringBuilder();
+ 
 
 /**
     * Constructor: creates a new GraphViz object that will contain
@@ -75,12 +78,18 @@ public class GraphViz
    public String getDotSource() {
       return graph.toString();
    }
+   
+   public String getPlainDotSource() {
+	      return graphPlain.toString();
+	   }
+   
 
 /**
     * Adds a string to the graph's source (without newline).
     */
    public void add(String line) {
       graph.append(line);
+      graphPlain.append(line);
    }
 
 /**
@@ -88,6 +97,18 @@ public class GraphViz
     */
    public void addln(String line) {
       graph.append(line + "\n");
+      graphPlain.append(line + "\n");
+   }
+   
+   public void addStart()
+   {
+	   graph.append(this.start_graph());
+	  
+   }
+   
+   public void addEnd()
+   {
+	   graph.append(this.end_graph());
    }
 
 /**
@@ -95,6 +116,7 @@ public class GraphViz
     */
    public void addln() {
       graph.append('\n');
+      graphPlain.append('\n');
    }
 
 /**
@@ -256,5 +278,40 @@ return img_stream;   }
     
     this.graph = sb;
    }
+   
+   
+   public static void main(String[] args)
+   {
+	   GraphViz gv = new GraphViz();
+	   gv.addStart();
+	    gv.addln("A -> B;");
+	    gv.addln("A -> FF;");
+	    
+	    gv.addEnd();
+	    
+	   System.out.println(gv.getDotSource());
+	   
+	   
+	     GraphViz gv2 = new GraphViz();
+	     gv2.addStart();
+	     
+	     //gv2.add("D->"+"{"+gv.getPlainDotSource()+"}");
+	     
+	     gv2.addln("FF -> subgraph D"+"{"+gv.getPlainDotSource()+"}");
+	    // gv2.addln("FF-> A");
+	     
+	     gv2.addEnd();
+	   
+	     System.out.println(gv2.getDotSource());
+		   
+	     
+	    String type = "gif";
+	   File out = new File("out." + type);   // out.gif in this example
+	   gv.writeGraphToFile( gv2.getGraph( gv2.getDotSource(), type ), out );
+   }
+   
+   
+   
+   
    
 } // end of class GraphViz

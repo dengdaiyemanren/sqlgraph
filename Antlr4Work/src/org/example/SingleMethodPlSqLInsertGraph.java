@@ -9,10 +9,10 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.plsql.utils.*;
 import org.plsql.*;
 import org.plsql.visitor.*;
-import org.plsql.visitor.InsertGraphVisitor.VistFlag;
+import org.plsql.visitor.SingleMethodInsertGraphVisitor.VistFlag;
 
 
-public class PlSqLInsertGraph {
+public class SingleMethodPlSqLInsertGraph {
 
     private static Properties prop = new Properties();
 
@@ -26,7 +26,7 @@ public class PlSqLInsertGraph {
         try {
             tree = new PlSqlParserTree(new ANTLRInputStream(parseFile));
 
-            InsertGraphVisitor visitor = new InsertGraphVisitor(tree);
+            SingleMethodInsertGraphVisitor visitor = new SingleMethodInsertGraphVisitor(tree);
 
             visitor.visitMode = VistFlag.FIRST_PASS;
             visitor.visit();
@@ -37,7 +37,8 @@ public class PlSqLInsertGraph {
             visitor.visit();
 
             parsedSql = tree.getResultText();
-            // обработанный текст
+         
+            
             // System.out.println(parsedSql);
         } finally {
             parseFile.close();

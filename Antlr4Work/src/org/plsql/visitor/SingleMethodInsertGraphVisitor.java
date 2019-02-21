@@ -34,7 +34,7 @@ import net.sf.jsqlparser.statement.select.SelectBody;
 import net.sf.jsqlparser.statement.select.SetOperationList;
 import net.sf.jsqlparser.statement.select.SubSelect;
 
-public class InsertGraphVisitor extends PlSqlRuleVisitor {
+public class SingleMethodInsertGraphVisitor extends PlSqlRuleVisitor {
     public enum ExpressionType {
         PACKAGE, FUNCTION, PROCEDURE, VARIABLE, UNKNOWN
     }
@@ -50,7 +50,7 @@ public class InsertGraphVisitor extends PlSqlRuleVisitor {
     
     public String currentTable  = null;
 
-    public InsertGraphVisitor(PlSqlParserTree tree) {
+    public SingleMethodInsertGraphVisitor(PlSqlParserTree tree) {
         super(tree);
     }
 
