@@ -1,7 +1,7 @@
 # 参考项目 #
 https://github.com/alris/antlr4-oracle
 
-# 目标 #
+## 同一方法中表调用关系图形化(已实现） ##
 图形化PKG包的调用关系
 <pre>
 CREATE OR REPLACE PACKAGE BODY scott.pkg1
@@ -28,7 +28,7 @@ END;
 ![java学习导图](https://github.com/dengdaiyemanren/sqlgraph/blob/master/tests/images/table1.jpg)
 
 
-## 同一方法中表调用关系图形化(已实现） ##
+
 
 ## 同一包中的表调用关系图形化 ##
 
