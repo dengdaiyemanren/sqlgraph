@@ -277,6 +277,7 @@ public class AllMethodInsertGraphVisitor extends PlSqlRuleVisitor {
     {
     	
     	
+    	String prefix = this.currentTable+"_";
     	if(selectBody instanceof SetOperationList)
     	{
     		SetOperationList sot = (SetOperationList)selectBody;
@@ -308,7 +309,10 @@ public class AllMethodInsertGraphVisitor extends PlSqlRuleVisitor {
     		System.out.println(parent+"->>>>>"+subSelect.getAlias().getName());
     		
     		//graph it 1
-    		gv.addln(parent + " ->" + subSelect.getAlias().getName() + " ;");
+    		//gv.addln(parent + " ->" + subSelect.getAlias().getName() + " ;");
+    		gv.addln(prefix+parent + " ->" + prefix+subSelect.getAlias().getName() + " ;");
+    		
+    		
     		
     		
     		if(null != subSelect.getSelectBody())
@@ -337,16 +341,30 @@ public class AllMethodInsertGraphVisitor extends PlSqlRuleVisitor {
     				
     				System.out.println("join[i]="+joinTable.getFullyQualifiedName());
     				
+    				//System.out.println(parent+"->>>>>"+joinTable.getAlias().getName());
     				System.out.println(parent+"->>>>>"+joinTable.getAlias().getName());
+    				
+    				
+    				
     				//gv.ad
     				
     				//graph it 2
-    	    		gv.addln(parent + " ->" + joinTable.getFullyQualifiedName()+"_alias_" +joinTable.getAlias().getName() +";");
-    	    		
+    	    		//gv.addln(parent + " ->" + joinTable.getFullyQualifiedName()+"_alias_" +joinTable.getAlias().getName() +";");
+    	    		gv.addln(prefix+parent + " ->" + prefix+joinTable.getFullyQualifiedName()+"_alias_" +joinTable.getAlias().getName() +";");
+    	    		gv.add(prefix+parent+"[label="+parent+"]");
+					gv.add(prefix + joinTable.getFullyQualifiedName() + "_alias_" + joinTable.getAlias().getName()
+							+ "[label=" + joinTable.getFullyQualifiedName() + "_alias_" + joinTable.getAlias().getName()
+							+ "]");
+	
 					if (tableAndGraph.get(joinTable.getFullyQualifiedName()) != null) {
-						gv.addln(joinTable.getFullyQualifiedName() + "_alias_" + joinTable.getAlias().getName() + "->"
-								+ "{"+tableAndGraph.get(joinTable.getFullyQualifiedName()).getPlainDotSource()+"};");
-
+					
+						String subgraph =  "cluster_"+joinTable.getFullyQualifiedName();
+		    			gv.addln("subgraph "+subgraph+"{" +tableAndGraph.get(joinTable.getFullyQualifiedName()).getPlainDotSource()+"}");
+		    			
+		    			gv.addln(prefix+joinTable.getFullyQualifiedName() + "_alias_" + joinTable.getAlias().getName() + "->"
+								+joinTable.getFullyQualifiedName()+"_"+joinTable.getFullyQualifiedName()+"[lhead="+subgraph+"]");
+						
+						
 					}
     			
     			
@@ -358,7 +376,12 @@ public class AllMethodInsertGraphVisitor extends PlSqlRuleVisitor {
     				System.out.println("join[i]="+joinItem.getAlias().getName());
     				
     				//graph it 3
-    	    		gv.addln(parent + " ->" + joinItem.getAlias().getName() + " ;");
+    	    		//gv.addln(parent + " ->" + joinItem.getAlias().getName() + " ;");
+    	    		gv.addln(prefix+parent + " ->" +prefix+ joinItem.getAlias().getName() + " ;");
+    	    		
+    	    		gv.add(prefix+parent+"[label="+parent+"]");
+    	    		gv.add(prefix+ joinItem.getAlias().getName()+"[label="+joinItem.getAlias().getName()+"]");
+    	    		
     	    		
     	    		SubSelect joinSubSelect =  (SubSelect) joinItem;
     	    		
@@ -386,11 +409,23 @@ public class AllMethodInsertGraphVisitor extends PlSqlRuleVisitor {
     		System.out.println(parent+"->>>>>"+fromItemTable.getAlias().getName());
     		
     		//graph it 4
-    		gv.addln(parent + " ->" + fromItemTable.getFullyQualifiedName()+"_alias_" +fromItemTable.getAlias().getName() +";");
-    	
+    		//gv.addln(parent + " ->" + fromItemTable.getFullyQualifiedName()+"_alias_" +fromItemTable.getAlias().getName() +";");
+    		gv.addln(prefix+parent + " ->" +prefix+ fromItemTable.getFullyQualifiedName()+"_alias_" +fromItemTable.getAlias().getName() +";");
+        	
+
+    		gv.add(prefix+parent+"[label="+parent+"]");
+			gv.add(prefix + fromItemTable.getFullyQualifiedName() + "_alias_" + fromItemTable.getAlias().getName()
+					+ "[label=" + fromItemTable.getFullyQualifiedName() + "_alias_" + fromItemTable.getAlias().getName()
+					+ "]");
+
     		if (tableAndGraph.get(fromItemTable.getFullyQualifiedName()) != null) {
-				gv.addln(fromItemTable.getFullyQualifiedName() + "_alias_" + fromItemTable.getAlias().getName() + "->"
-						+"{" +tableAndGraph.get(fromItemTable.getFullyQualifiedName()).getPlainDotSource()+"};");
+
+    			String subgraph =  "cluster_"+fromItemTable.getFullyQualifiedName();
+    			gv.addln("subgraph "+subgraph+"{" +tableAndGraph.get(fromItemTable.getFullyQualifiedName()).getPlainDotSource()+"}");
+    			
+    			gv.addln(prefix+fromItemTable.getFullyQualifiedName() + "_alias_" + fromItemTable.getAlias().getName() + "->"
+						+fromItemTable.getFullyQualifiedName()+"_"+fromItemTable.getFullyQualifiedName()+"[lhead="+subgraph+"]");
+				
 
 			}
 		
