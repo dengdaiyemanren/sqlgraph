@@ -1,0 +1,96 @@
+2020-03-13 23:47:43  [ main:0 ] - [ DEBUG ]  currentTable= table1
+2020-03-13 23:47:43  [ main:0 ] - [ DEBUG ]  currentTable= table1
+2020-03-13 23:47:43  [ main:129 ] - [ DEBUG ]  Tables:{tables=Select, tablet=Select, tablex=Select}
+2020-03-13 23:47:43  [ main:129 ] - [ DEBUG ]  Tables:{tables=Select, tablet=Select, tablex=Select}
+2020-03-13 23:47:43  [ main:129 ] - [ DEBUG ]  digraph G {table1_table1[label = "table1"]
+table1_table1->table1_tables ;
+table1_tables[label = "tables"]
+table1_table1->table1_tablet ;
+table1_tablet[label = "tablet"]
+table1_table1->table1_tablex ;
+table1_tablex[label = "tablex"]
+}
+2020-03-13 23:47:43  [ main:129 ] - [ DEBUG ]  digraph G {table1_table1[label = "table1"]
+table1_table1->table1_tables ;
+table1_tables[label = "tables"]
+table1_table1->table1_tablet ;
+table1_tablet[label = "tablet"]
+table1_table1->table1_tablex ;
+table1_tablex[label = "tablex"]
+}
+2020-03-13 23:47:44  [ main:1050 ] - [ DEBUG ]  Tables:{tables=Select, tablet=Select}
+2020-03-13 23:47:44  [ main:1050 ] - [ DEBUG ]  Tables:{tables=Select, tablet=Select}
+2020-03-13 23:47:44  [ main:1050 ] - [ DEBUG ]  digraph G {null_null[label = "null"]
+null_null->null_tables ;
+null_tables[label = "tables"]
+null_null->null_tablet ;
+null_tablet[label = "tablet"]
+}
+2020-03-13 23:47:44  [ main:1050 ] - [ DEBUG ]  digraph G {null_null[label = "null"]
+null_null->null_tables ;
+null_tables[label = "tables"]
+null_null->null_tablet ;
+null_tablet[label = "tablet"]
+}
+2020-03-13 23:47:44  [ main:1177 ] - [ DEBUG ]  Tables:{tablex=Select}
+2020-03-13 23:47:44  [ main:1177 ] - [ DEBUG ]  Tables:{tablex=Select}
+2020-03-13 23:47:44  [ main:1178 ] - [ DEBUG ]  digraph G {null_null[label = "null"]
+null_null->null_tablex ;
+null_tablex[label = "tablex"]
+}
+2020-03-13 23:47:44  [ main:1178 ] - [ DEBUG ]  digraph G {null_null[label = "null"]
+null_null->null_tablex ;
+null_tablex[label = "tablex"]
+}
+2020-03-13 23:47:44  [ main:1320 ] - [ DEBUG ]  currentTable= table2
+2020-03-13 23:47:44  [ main:1320 ] - [ DEBUG ]  currentTable= table2
+2020-03-13 23:47:44  [ main:1322 ] - [ DEBUG ]  Tables:{table1=Select, tablet=Select, tablex=Select}
+2020-03-13 23:47:44  [ main:1322 ] - [ DEBUG ]  Tables:{table1=Select, tablet=Select, tablex=Select}
+2020-03-13 23:47:44  [ main:1322 ] - [ DEBUG ]  digraph G {table2_table2[label = "table2"]
+table2_table2->table2_table1 ;
+table2_table1[label = "table1"]
+subgraph cluster_table1{table1_table1[label = "table1"]
+table1_table1->table1_tables ;
+table1_tables[label = "tables"]
+table1_table1->table1_tablet ;
+table1_tablet[label = "tablet"]
+table1_table1->table1_tablex ;
+table1_tablex[label = "tablex"]
+}
+table2_table1->table1_table1[lhead=cluster_table1]
+table2_table2->table2_tablet ;
+table2_tablet[label = "tablet"]
+table2_table2->table2_tablex ;
+table2_tablex[label = "tablex"]
+}
+2020-03-13 23:47:44  [ main:1322 ] - [ DEBUG ]  digraph G {table2_table2[label = "table2"]
+table2_table2->table2_table1 ;
+table2_table1[label = "table1"]
+subgraph cluster_table1{table1_table1[label = "table1"]
+table1_table1->table1_tables ;
+table1_tables[label = "tables"]
+table1_table1->table1_tablet ;
+table1_tablet[label = "tablet"]
+table1_table1->table1_tablex ;
+table1_tablex[label = "tablex"]
+}
+table2_table1->table1_table1[lhead=cluster_table1]
+table2_table2->table2_tablet ;
+table2_tablet[label = "tablet"]
+table2_table2->table2_tablex ;
+table2_tablex[label = "tablex"]
+}
+2020-03-13 23:47:44  [ main:1462 ] - [ DEBUG ]  Tables:{table1=Select, tablet=Select}
+2020-03-13 23:47:44  [ main:1462 ] - [ DEBUG ]  Tables:{table1=Select, tablet=Select}
+2020-03-13 23:47:44  [ main:1463 ] - [ DEBUG ]  
+2020-03-13 23:47:44  [ main:1463 ] - [ DEBUG ]  
+2020-03-13 23:47:44  [ main:1465 ] - [ DEBUG ]  Tables:{tablex=Select}
+2020-03-13 23:47:44  [ main:1465 ] - [ DEBUG ]  Tables:{tablex=Select}
+2020-03-13 23:47:44  [ main:1465 ] - [ DEBUG ]  digraph G {null_null[label = "null"]
+null_null->null_tablex ;
+null_tablex[label = "tablex"]
+}
+2020-03-13 23:47:44  [ main:1465 ] - [ DEBUG ]  digraph G {null_null[label = "null"]
+null_null->null_tablex ;
+null_tablex[label = "tablex"]
+}

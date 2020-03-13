@@ -1,0 +1,99 @@
+2020-03-14 00:15:12  [ main:0 ] - [ DEBUG ]  start:D:\basestudy\java\github\sqlgraph\tests\call_graph_test\pkg1.pkb
+2020-03-14 00:15:12  [ main:871 ] - [ DEBUG ]  currentTable= table1
+2020-03-14 00:15:13  [ main:983 ] - [ DEBUG ]  Tables:{tables=Select, tablet=Select, tablex=Select}
+2020-03-14 00:15:13  [ main:984 ] - [ DEBUG ]  digraph G {table1_table1[label = "table1"]
+table1_table1->table1_tables ;
+table1_tables[label = "tables"]
+table1_table1->table1_tablet ;
+table1_tablet[label = "tablet"]
+table1_table1->table1_tablex ;
+table1_tablex[label = "tablex"]
+}
+2020-03-14 00:15:14  [ main:1941 ] - [ DEBUG ]  currentTable= table1_1
+2020-03-14 00:15:14  [ main:1943 ] - [ DEBUG ]  Tables:{tablesAA=Select, tabletAA=Select, tablex=Select}
+2020-03-14 00:15:14  [ main:1943 ] - [ DEBUG ]  digraph G {table1_1_table1_1[label = "table1_1"]
+table1_1_table1_1->table1_1_tablesAA ;
+table1_1_tablesAA[label = "tablesAA"]
+table1_1_table1_1->table1_1_tabletAA ;
+table1_1_tabletAA[label = "tabletAA"]
+table1_1_table1_1->table1_1_tablex ;
+table1_1_tablex[label = "tablex"]
+}
+2020-03-14 00:15:14  [ main:2081 ] - [ DEBUG ]  currentTable= table2
+2020-03-14 00:15:14  [ main:2082 ] - [ DEBUG ]  Tables:{table1=Select, tablet=Select, tablex=Select}
+2020-03-14 00:15:14  [ main:2082 ] - [ DEBUG ]  digraph G {table2_table2[label = "table2"]
+table2_table2->table2_table1 ;
+table2_table1[label = "table1"]
+subgraph cluster_table1{table1_table1[label = "table1"]
+table1_table1->table1_tables ;
+table1_tables[label = "tables"]
+table1_table1->table1_tablet ;
+table1_tablet[label = "tablet"]
+table1_table1->table1_tablex ;
+table1_tablex[label = "tablex"]
+}
+table2_table1->table1_table1[lhead=cluster_table1]
+subgraph cluster_table1_1{table1_1_table1_1[label = "table1_1"]
+table1_1_table1_1->table1_1_tablesAA ;
+table1_1_tablesAA[label = "tablesAA"]
+table1_1_table1_1->table1_1_tabletAA ;
+table1_1_tabletAA[label = "tabletAA"]
+table1_1_table1_1->table1_1_tablex ;
+table1_1_tablex[label = "tablex"]
+}
+table2_table1_1->table1_1_table1_1[lhead=cluster_table1_1]
+table2_table2->table2_tablet ;
+table2_tablet[label = "tablet"]
+table2_table2->table2_tablex ;
+table2_tablex[label = "tablex"]
+}
+2020-03-14 00:36:38  [ main:0 ] - [ DEBUG ]  start:D:\basestudy\java\github\sqlgraph\tests\call_graph_test\pkg1.pkb
+2020-03-14 00:36:39  [ main:939 ] - [ DEBUG ]  currentTable= table1
+2020-03-14 00:36:39  [ main:1061 ] - [ DEBUG ]  Tables:{tables=Select, tablet=Select, tablex=Select}
+2020-03-14 00:36:39  [ main:1062 ] - [ DEBUG ]  digraph G {table1_table1[label = "table1"]
+table1_table1->table1_tables ;
+table1_tables[label = "tables"]
+table1_table1->table1_tablet ;
+table1_tablet[label = "tablet"]
+table1_table1->table1_tablex ;
+table1_tablex[label = "tablex"]
+}
+2020-03-14 00:36:40  [ main:2071 ] - [ DEBUG ]  currentTable= table1_1
+2020-03-14 00:36:40  [ main:2072 ] - [ DEBUG ]  Tables:{tablesAA=Select, tabletAA=Select, tablex=Select}
+2020-03-14 00:36:40  [ main:2073 ] - [ DEBUG ]  digraph G {table1_1_table1_1[label = "table1_1"]
+table1_1_table1_1->table1_1_tablesAA ;
+table1_1_tablesAA[label = "tablesAA"]
+table1_1_table1_1->table1_1_tabletAA ;
+table1_1_tabletAA[label = "tabletAA"]
+table1_1_table1_1->table1_1_tablex ;
+table1_1_tablex[label = "tablex"]
+}
+2020-03-14 00:36:40  [ main:2209 ] - [ DEBUG ]  currentTable= table2
+2020-03-14 00:36:40  [ main:2210 ] - [ DEBUG ]  Tables:{table1=Select, tablet=Select, tablex=Select}
+2020-03-14 00:36:40  [ main:2211 ] - [ DEBUG ]  digraph G {table2_table2[label = "table2"]
+table2_table2->table2_table1 ;
+table2_table1[label = "table1"]
+subgraph cluster_table1{table1_table1[label = "table1"]
+table1_table1->table1_tables ;
+table1_tables[label = "tables"]
+table1_table1->table1_tablet ;
+table1_tablet[label = "tablet"]
+table1_table1->table1_tablex ;
+table1_tablex[label = "tablex"]
+}
+table2_table1->table1_table1[lhead=cluster_table1]
+subgraph cluster_table1_1{table1_1_table1_1[label = "table1_1"]
+table1_1_table1_1->table1_1_tablesAA ;
+table1_1_tablesAA[label = "tablesAA"]
+table1_1_table1_1->table1_1_tabletAA ;
+table1_1_tabletAA[label = "tabletAA"]
+table1_1_table1_1->table1_1_tablex ;
+table1_1_tablex[label = "tablex"]
+}
+table2_table1_1[label = "table2"]
+table2_table1_1->table1_1_table1_1[lhead=cluster_table1_1]
+table2_table2->table2_tablet ;
+table2_tablet[label = "tablet"]
+table2_table2->table2_tablex ;
+table2_tablex[label = "tablex"]
+}

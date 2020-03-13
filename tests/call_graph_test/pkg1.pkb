@@ -23,11 +23,23 @@ is
 	  result out number
    ) is
    begin
+   
+   
+   	insert into table1(a1,b1,c1)
+	 select h.a1,t.b1,h.c1 from 
+	 (select s.a1,t.c1 from tablesAA s , tabletAA t where s.a1 = t.a1) h,
+	 (select x.b1 from tablex x) t 
+	 where  t.b1 = h.b1;
+	 
+	 
+	 
 	 insert into table2(a1,b1,c1)
 	 select h.a1,t.b1,h.c1 from 
 	 (select s.a1,t.c1 from table1 s , tablet t where s.a1 = t.a1) h,
 	 (select x.b1 from tablex x) t 
 	 where  t.b1 = h.b1;
+	 
+
 	 
    
    end proc1;

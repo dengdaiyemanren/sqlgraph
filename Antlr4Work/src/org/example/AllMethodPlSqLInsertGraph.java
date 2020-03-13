@@ -1,5 +1,6 @@
 package org.example;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -10,18 +11,24 @@ import org.plsql.PlSqlParserTree;
 import org.plsql.utils.PlSqlUtils;
 import org.plsql.visitor.AllMethodInsertGraphVisitor;
 import org.plsql.visitor.AllMethodInsertGraphVisitor.AllMethodVistFlag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class AllMethodPlSqLInsertGraph {
 
     private static Properties prop = new Properties();
-
-    public static void processFile(String fileName) throws IOException {
+    
+ 
+    public static void processFile(String fileName,String shortName) throws IOException {
         String parsedSql = null;
         PlSqlParserTree tree = null;
 
-        System.out.println("Start " + fileName);
+        Logger logger = LoggerFactory.getLogger(AllMethodPlSqLInsertGraph.class);
 
+        
+        System.out.println("Start " + fileName);
+        logger.debug("start:" + fileName);
         FileInputStream parseFile = new FileInputStream(fileName);
         try {
             tree = new PlSqlParserTree(new ANTLRInputStream(parseFile));
@@ -39,7 +46,14 @@ public class AllMethodPlSqLInsertGraph {
             parsedSql = tree.getResultText();
             // обработанный текст
             // System.out.println(parsedSql);
-        } finally {
+        } 
+        catch (Exception ex)
+        {
+        	logger.debug(shortName + "parser fail");
+        	System.out.println(shortName + "parser fail");
+        }
+        
+        finally {
             parseFile.close();
         }
 
@@ -54,19 +68,30 @@ public class AllMethodPlSqLInsertGraph {
         if (args.length > 0) {
             for (int i = 0; i < args.length; i++) {
                 try {
-                    processFile(args[i]);
+                    processFile(args[i],null);
                 } catch (IOException e) {
                     PlSqlUtils.logger.log(Level.WARNING, "Error processing " + args[i], e);
                 }
             }
         } else {
-            String fileName = prop.getProperty("default_file_name");
+            //String fileName = prop.getProperty("default_file_name");
+            
+            String fileDir = prop.getProperty("default_file_dir");
 
-            if ((fileName != null) && (!fileName.isEmpty())) {
+            if ((fileDir != null) && (!fileDir.isEmpty())) {
                 try {
-                    processFile(fileName);
+                	
+                	File file = new File(fileDir);
+                	File [] files  = file.listFiles();
+                	
+                	for(int i = 0;i<files.length;i++)
+                	{
+                		processFile(files[i].getPath(),files[i].getName());
+                	}
+                	
+                    
                 } catch (IOException e) {
-                    PlSqlUtils.logger.log(Level.WARNING, "Error processing " + fileName, e);
+                   // PlSqlUtils.logger.log(Level.WARNING, "Error processing " + fileName, e);
                 }
             } else {
                 System.out.println("No files to parse");

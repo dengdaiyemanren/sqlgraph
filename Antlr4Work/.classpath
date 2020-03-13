@@ -5,5 +5,9 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Antlr4ParserLexer"/>
 	<classpathentry kind="lib" path="/Antlr4ParserLexer/lib/antlr-4.5.3-complete.jar"/>
 	<classpathentry kind="lib" path="/Antlr4ParserLexer/lib/jsqlparser-1.4.jar"/>
+	<classpathentry kind="lib" path="/Antlr4ParserLexer/lib/druid-1.0.29.jar"/>
+	<classpathentry kind="lib" path="/Antlr4ParserLexer/lib/slf4j-api-1.7.21.jar"/>
+	<classpathentry kind="lib" path="/Antlr4ParserLexer/lib/slf4j-log4j12-1.7.21.jar"/>
+	<classpathentry kind="lib" path="/Antlr4ParserLexer/lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
